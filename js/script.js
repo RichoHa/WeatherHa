@@ -1,12 +1,17 @@
 var myAPIkey = "ab1af9bd1a8500447caf0bf0f0a1518d";
 var searchButtonjs = document.getElementById("searchButton");
+var userLocation; //insert 
 
-searchButtonjs.addEventListener('click', getCurrentWeather);
+searchButtonjs.addEventListener('click', searchButtonClicked); //make function when buttne is clicked
+
+function searchButtonClicked(){//inserted
+  userLocation = document.getElementById("userInputHere").value;
+  getCurrentWeather();
+}
 
 //day1 Function
 function getCurrentWeather() {
 
-    var userLocation = document.getElementById("userInputHere").value;
     var requestUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${userLocation}&units=metric&appid=${myAPIkey}`;
 
 

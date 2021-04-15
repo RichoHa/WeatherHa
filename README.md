@@ -5,7 +5,9 @@ Web link below:
 https://richoha.github.io/WeatherHa/
 
 Github link below:
+https://github.com/RichoHa/WeatherHa
 
+Screenshot below:
 
 # Requirements
 
