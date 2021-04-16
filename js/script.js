@@ -1,11 +1,37 @@
 var myAPIkey = "ab1af9bd1a8500447caf0bf0f0a1518d";
 var searchButtonjs = document.getElementById("searchButton");
-var userLocation; //insert 
+var userLocation; 
 
-searchButtonjs.addEventListener('click', searchButtonClicked); //make function when buttne is clicked
+//Local Storage Function-------------------------------------
+var buttonArray= [];
+var userBOx = document.getElementById("existingSearchContainer");
 
-function searchButtonClicked(){//inserted
+function renderMessage() {
+  buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
+  if (buttonArray !== null) {
+    for(var i =0; i<buttonArray.length; i++){
+      var btn = document.createElement("button");
+      btn.innerHTML = buttonArray[i];
+      userBOx.append(btn);
+      userInputJs = buttonArray[i];
+      getCurrentWeather();
+    }
+  }
+}
+
+//---------------------------------------------------------
+
+searchButtonjs.addEventListener('click', searchButtonClicked); 
+
+function searchButtonClicked(){
   userLocation = document.getElementById("userInputHere").value;
+  //Make local Storage---------------------------------------
+  var btn = document.createElement("button");
+  btn.innerHTML = userLocation;
+  userBOx.prepend(btn);
+  buttonArray.unshift(userLocation);
+  localStorage.setItem("buttonArray", JSON.stringify(buttonArray));
+  //---------------------------------------------------------
   getCurrentWeather();
 }
 
@@ -189,6 +215,3 @@ function getCurrentWeather() {
         document.getElementById("day6Humidity").innerText= "Humidity: "+data.list[39].main.humidity+" %";
     });
 }
-
-
-
