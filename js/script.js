@@ -1,28 +1,52 @@
 var myAPIkey = "ab1af9bd1a8500447caf0bf0f0a1518d";
 var searchButtonjs = document.getElementById("searchButton");
+var clearButtonjs = document.getElementById("myLocationButton");
 var userLocation; 
 var lat;
 var lon;
 
 
-//Local Storage Function-------------------------------------
-// var buttonArray= [""];
-// var userBOx = document.getElementById("existingSearchContainer");
-
-// renderMessage();
-
-// function renderMessage() {
-//   buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
-//   if (buttonArray !== null) {
-//     for(var i =0; i<buttonArray.length; i++){
-//       var btn = document.createElement("button");
-//       btn.innerHTML = buttonArray[i];
-//       userBOx.append(btn);
-//       userLocation = buttonArray[i];
-//       getCurrentWeather();
-//     }
-//   }
+// //Clear local storage
+// clearButtonjs.addEventListener("click", clearFunction());
+// function clearFunction(){
+//   localStorage.clear();
+//   location.reload();
 // }
+
+
+//Local Storage Function-------------------------------------
+var buttonArray= [];
+var userBOx = document.getElementById("existingSearchContainer");
+
+startingFunction();
+
+function startingFunction() {
+
+  buttonArray = JSON.parse(localStorage.getItem("info"));
+  
+  //if null is returned
+  if (localStorage.getItem("info") === null) {
+    localStorage.setItem("info", "[]");
+    startingFunction();
+  }
+
+  for(var i =0; i<buttonArray.length; i++){
+    var btn = document.createElement("button");
+    btn.innerHTML = buttonArray[i];
+    userBOx.append(btn);
+    userLocation = buttonArray[i];
+    //Add Event Listener
+    btn.addEventListener("click", function(party) {
+      party.preventDefault();
+      userLocation = this.innerHTML;
+      getCurrentWeather()
+    })
+  }
+  userLocation = buttonArray[0];
+  getCurrentWeather()
+}
+
+
 //---------------------------------------------------------
 
 searchButtonjs.addEventListener('click', searchButtonClicked); 
@@ -30,14 +54,13 @@ searchButtonjs.addEventListener('click', searchButtonClicked);
 function searchButtonClicked(){
   userLocation = document.getElementById("userInputHere").value;
   //Make local Storage---------------------------------------
-  // var btn = document.createElement("button");
-  // btn.innerHTML = userLocation;
-  // userBOx.prepend(btn);
-  // buttonArray.unshift(userLocation);
-  // localStorage.setItem("buttonArray", JSON.stringify(buttonArray));
+  var btn = document.createElement("button");
+  btn.innerHTML = userLocation;
+  userBOx.prepend(btn);
+  buttonArray.unshift(userLocation);
+  localStorage.setItem("info", JSON.stringify(buttonArray));
   //---------------------------------------------------------
   getCurrentWeather();
-
 }
 
 //day1 Function
