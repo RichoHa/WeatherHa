@@ -1,24 +1,28 @@
 var myAPIkey = "ab1af9bd1a8500447caf0bf0f0a1518d";
 var searchButtonjs = document.getElementById("searchButton");
 var userLocation; 
+var lat;
+var lon;
+
 
 //Local Storage Function-------------------------------------
-var buttonArray= [];
-var userBOx = document.getElementById("existingSearchContainer");
-renderMessage();
+// var buttonArray= [""];
+// var userBOx = document.getElementById("existingSearchContainer");
 
-function renderMessage() {
-  buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
-  if (buttonArray !== null) {
-    for(var i =0; i<buttonArray.length; i++){
-      var btn = document.createElement("button");
-      btn.innerHTML = buttonArray[i];
-      userBOx.append(btn);
-      userLocation = buttonArray[i];
-      getCurrentWeather();
-    }
-  }
-}
+// renderMessage();
+
+// function renderMessage() {
+//   buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
+//   if (buttonArray !== null) {
+//     for(var i =0; i<buttonArray.length; i++){
+//       var btn = document.createElement("button");
+//       btn.innerHTML = buttonArray[i];
+//       userBOx.append(btn);
+//       userLocation = buttonArray[i];
+//       getCurrentWeather();
+//     }
+//   }
+// }
 //---------------------------------------------------------
 
 searchButtonjs.addEventListener('click', searchButtonClicked); 
@@ -26,13 +30,14 @@ searchButtonjs.addEventListener('click', searchButtonClicked);
 function searchButtonClicked(){
   userLocation = document.getElementById("userInputHere").value;
   //Make local Storage---------------------------------------
-  var btn = document.createElement("button");
-  btn.innerHTML = userLocation;
-  userBOx.prepend(btn);
-  buttonArray.unshift(userLocation);
-  localStorage.setItem("buttonArray", JSON.stringify(buttonArray));
+  // var btn = document.createElement("button");
+  // btn.innerHTML = userLocation;
+  // userBOx.prepend(btn);
+  // buttonArray.unshift(userLocation);
+  // localStorage.setItem("buttonArray", JSON.stringify(buttonArray));
   //---------------------------------------------------------
   getCurrentWeather();
+
 }
 
 //day1 Function
@@ -49,6 +54,14 @@ function getCurrentWeather() {
 
         document.getElementById("day1Location").innerText= data.city.name;
         console.log(data)
+
+        //
+        lat = data.city.coord.lat;
+        console.log(lat);
+        lon = data.city.coord.lon;
+        console.log(lon);
+        getUV()
+        //
 
         //Getting the Date, Day, Month and Time.
         var currentDay1 = data.list[0].dt_txt;
@@ -152,7 +165,6 @@ function getCurrentWeather() {
         document.getElementById("day1Temp").innerText= "Temp: "+data.list[0].main.temp+" deg";
         document.getElementById("day1Wind").innerText= "Wind: "+data.list[0].wind.speed+" MPH";
         document.getElementById("day1Humidity").innerText= "Humidity: "+data.list[0].main.humidity+" %";
-        document.getElementById("day1UVIndex").innerText= "";
         
         //day2
         var currentDay2 = data.list[7].dt_txt;
@@ -214,4 +226,32 @@ function getCurrentWeather() {
         document.getElementById("day6Wind").innerText= "Wind: "+data.list[39].wind.speed+" MPH";
         document.getElementById("day6Humidity").innerText= "Humidity: "+data.list[39].main.humidity+" %";
     });
+}
+
+
+function getUV() {
+
+  var requestUV = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${myAPIkey}`;
+
+//UV Entry
+fetch(requestUV)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (info) {
+    console.log(info)
+    var indexNo = document.getElementById("day1UVIndexNo");
+
+    indexNo.innerHTML = info.current.uvi;
+
+    if(info.current.uvi<=2){
+      indexNo.classList.add("uVGreen");
+    } else if(info.current.uvi<=3){
+      indexNo.classList.add("uVYellow");
+    } else if(info.current.uvi<=7){
+      indexNo.classList.add("uVOrange");
+    } else{
+      indexNo.classList.add("uVRed");
+    }
+  });
 }

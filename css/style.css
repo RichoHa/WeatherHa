@@ -84,6 +84,27 @@ textarea{
 
 
 /* Weather Container-----------------------------------------------*/
+    /*UV Colours*/
+.uVGreen{
+    background-color: rgb(53, 105, 0);
+    color: cornsilk;
+}
+
+.uVYellow{
+    background-color: rgb(246, 230, 3);
+    color: rgb(15, 15, 15);
+}
+
+.uVOrange{
+    background-color: rgb(255, 157, 0);
+    color: rgb(15, 15, 15);
+}
+
+.uVRed{
+    background-color: rgb(231, 0, 0);
+    color: rgb(0, 0, 0);
+}
+
 #weatherContainer{
     display:flex;
     flex-direction: column;
