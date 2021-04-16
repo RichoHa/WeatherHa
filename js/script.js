@@ -6,12 +6,13 @@ var lat;
 var lon;
 
 
-// //Clear local storage
-// clearButtonjs.addEventListener("click", clearFunction());
-// function clearFunction(){
-//   localStorage.clear();
-//   location.reload();
-// }
+//Clear local storage
+clearButtonjs.addEventListener("click", clearFunction);
+
+function clearFunction(){
+  localStorage.clear();
+  location.reload();
+}
 
 
 //Local Storage Function-------------------------------------
@@ -26,7 +27,7 @@ function startingFunction() {
   
   //if null is returned
   if (localStorage.getItem("info") === null) {
-    localStorage.setItem("info", "[]");
+    localStorage.setItem("info", `["Perth"]`);
     startingFunction();
   }
 
@@ -59,6 +60,11 @@ function searchButtonClicked(){
   userBOx.prepend(btn);
   buttonArray.unshift(userLocation);
   localStorage.setItem("info", JSON.stringify(buttonArray));
+    btn.addEventListener("click", function(haha) {
+      haha.preventDefault();
+      userLocation = this.innerHTML;
+      getCurrentWeather();
+    })
   //---------------------------------------------------------
   getCurrentWeather();
 }
@@ -76,13 +82,11 @@ function getCurrentWeather() {
     .then(function (data) {
 
         document.getElementById("day1Location").innerText= data.city.name;
-        console.log(data)
 
-        //
+
+        // Get let
         lat = data.city.coord.lat;
-        console.log(lat);
         lon = data.city.coord.lon;
-        console.log(lon);
         getUV()
         //
 
@@ -258,23 +262,35 @@ function getUV() {
 
 //UV Entry
 fetch(requestUV)
-  .then(function (response) {
-    return response.json();
+  .then(function (poo) {
+    return poo.json();
   })
-  .then(function (info) {
-    console.log(info)
+  .then(function (broo) {
+    console.log(broo)
     var indexNo = document.getElementById("day1UVIndexNo");
 
-    indexNo.innerHTML = "UV Index: "+info.current.uvi;
+    indexNo.innerHTML = "UV Index: "+ broo.current.uvi;
 
-    if(info.current.uvi<=2){
+    if(broo.current.uvi<=2){
       indexNo.classList.add("uVGreen");
-    } else if(info.current.uvi<=3){
+      indexNo.classList.remove("uVYellow");
+      indexNo.classList.remove("uVRed");
+      indexNo.classList.remove("uVOrange");
+    } else if(broo.current.uvi<=3){
+      indexNo.classList.remove("uVGreen");
       indexNo.classList.add("uVYellow");
-    } else if(info.current.uvi<=7){
-      indexNo.classList.add("uVOrange");
+      indexNo.classList.remove("uVRed");
+      indexNo.classList.remove("uVOrange");
+    } else if(broo.current.uvi<=7){
+      indexNo.classList.remove("uVGreen");
+      indexNo.classList.remove("uVYellow");
+      indexNo.classList.remove("uVRed");
+      indexNo.classList.add("uVOrange")
     } else{
+      indexNo.classList.remove("uVGreen");
+      indexNo.classList.remove("uVYellow");
       indexNo.classList.add("uVRed");
+      indexNo.classList.remove("uVOrange")
     }
   });
 }
