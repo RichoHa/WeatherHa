@@ -5,6 +5,7 @@ var userLocation;
 //Local Storage Function-------------------------------------
 var buttonArray= [];
 var userBOx = document.getElementById("existingSearchContainer");
+renderMessage();
 
 function renderMessage() {
   buttonArray = JSON.parse(localStorage.getItem("buttonArray"));
@@ -13,12 +14,11 @@ function renderMessage() {
       var btn = document.createElement("button");
       btn.innerHTML = buttonArray[i];
       userBOx.append(btn);
-      userInputJs = buttonArray[i];
+      userLocation = buttonArray[i];
       getCurrentWeather();
     }
   }
 }
-
 //---------------------------------------------------------
 
 searchButtonjs.addEventListener('click', searchButtonClicked); 
