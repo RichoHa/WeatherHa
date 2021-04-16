@@ -32,6 +32,8 @@ body{
 #optionsContainer{
     padding-right:1em;
     justify-content: center;
+    align-items: center;
+
 }
 
 #searchContainer{
@@ -118,12 +120,19 @@ textarea{
 #day1Title{
     display:flex;
     justify-content: space-between;
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: 600;
 }
 
+#day1Temp, #day1Wind, #day1Humidity, #day1UVIndexNo{
+    font-size: 1.5rem;
+}
+
+
+
 #day1WeatherContainer p{
     font-weight: 600;
+
 }
 
 #day1Title p{
@@ -153,6 +162,15 @@ textarea{
     font-size: 1.25em;
     padding: 0.25em;
     font-weight: 600;
+    text-align: center;
+}
+
+.dayContainer p:first-child{
+    font-size: 2rem;
+}
+
+.dayContainer i{
+    font-size: 4rem;
 }
 
 /* Weather Container-----------------------------------------------*/
@@ -163,6 +181,14 @@ textarea{
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;       
+    }
+
+    #optionsContainer{
+        width: 100%;
+    }
+
+    #weatherContainer{
+        width: 100%;
     }
   }
 
@@ -175,9 +201,12 @@ textarea{
         align-items: center;
         justify-content: center; 
         width: 100%;
+        text-align: center;
+        
     }
     #fiveDayWeatherContainer div{
         width: 100%;
+    
     }
 
     #weatherContainer{
@@ -186,7 +215,19 @@ textarea{
   }
 
   @media only screen and (max-width:  480px) {
-  #day1Title{
-    display: block;
+    #day1Title{
+        display: block;
+    }
+
+    #day1WeatherContainer{
+        text-align: center;
+    }
+
+    #searchContainer{
+        text-align: center;
+    }
+
+    #day5Forecast{
+        text-align: center;
     }
   }
