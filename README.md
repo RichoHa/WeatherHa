@@ -1,3 +1,4 @@
+
 # WeatherHa
 Weather Application
 
@@ -8,6 +9,9 @@ Github link below:
 https://github.com/RichoHa/WeatherHa
 
 Screenshot below:
+
+![WeatherHa Snippet](https://user-images.githubusercontent.com/76611103/115040693-461e2b80-9f04-11eb-9a60-87100956a2f1.PNG)
+
 
 # Requirements
 
