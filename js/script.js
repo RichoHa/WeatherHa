@@ -242,7 +242,7 @@ fetch(requestUV)
     console.log(info)
     var indexNo = document.getElementById("day1UVIndexNo");
 
-    indexNo.innerHTML = info.current.uvi;
+    indexNo.innerHTML = "UV Index: "+info.current.uvi;
 
     if(info.current.uvi<=2){
       indexNo.classList.add("uVGreen");
