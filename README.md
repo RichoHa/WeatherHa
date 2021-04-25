@@ -22,11 +22,11 @@ https://github.com/RichoHa/weatherHa
 The purpose of the website is to show people the weather forecast of the searched location.
 The weather forecast for the current day and the next five day of the searched location will be shownn.
 
-## Mobile ScreenShot
+## Web Application Mobile ScreenShot
 ![User Story Map](./assets/images/mobile-image.PNG)
 
 
-## Web Application ScreenShot
+## Web Application Desktop ScreenShot
 ![User Story Map](./assets/images/desktop-image.PNG)
 
 ## Collaborators
